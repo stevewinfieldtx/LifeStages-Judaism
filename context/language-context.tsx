@@ -2,16 +2,18 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
-export type LanguageCode = "en" | "es" | "fr" | "de" | "zh" | "vi" | "ko" | "th" | "pt"
+export type LanguageCode = "en" | "he" | "es" | "fr" | "de" | "zh" | "vi" | "ko" | "th" | "pt"
 
 export interface Language {
   code: LanguageCode
   name: string
   nativeName: string
   flag: string
+  rtl?: boolean
 }
 
 export const SUPPORTED_LANGUAGES: Language[] = [
+  { code: "he", name: "Hebrew", nativeName: "עברית", flag: "🇮🇱", rtl: true },
   { code: "en", name: "English", nativeName: "English", flag: "🇺🇸" },
   { code: "es", name: "Spanish", nativeName: "Español", flag: "🇪🇸" },
   { code: "fr", name: "French", nativeName: "Français", flag: "🇫🇷" },
@@ -53,12 +55,74 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     gender: "Gender",
     stageSituation: "What's your stage situation?",
     stageDesc: "Pick what best describes where you are in life right now.",
-    privacyNote:
-      "Your journey is private. We only use this data to personalize your devotional content and it is never shared with third parties.",
+    privacyNote: "Your journey is private. We only use this data to personalize your devotional content and it is never shared with third parties.",
     trial: "Trial",
     daysLeft: "days left",
     dayLeft: "day left",
+    
+    // Loading steps
+    gettingVerse: "Getting verse...",
+    generatingInterpretation: "Generating interpretation...",
+    connectionError: "Connection error. Please try again.",
+    searchingFor: "Searching for",
   },
+  
+  he: {
+    welcome: "ברוכים הבאים",
+    discoverInspiration: "גלו השראה יומית שנבנתה במיוחד עבורכם.",
+    setUpProfile: "הגדר את הפרופיל שלך",
+    selectVerse: "בחר פסוק או סיפור",
+    verseOfDay: "הפסוק היומי",
+    personalized: "תוכן מותאם אישית לשלב החיים שלך.",
+    friendlyBreakdown: "הסבר ידידותי",
+    context: "הקשר",
+    stories: "סיפורים",
+    poetry: "שירה",
+    imagery: "דימויים",
+    songs: "שירים",
+    loading: "טוען...",
+    generating: "מכין את החוויה שלך",
+    profile: "פרופיל",
+    home: "בית",
+    premium: "פרימיום",
+    language: "שפה",
+    save: "שמור והמשך",
+    letsGetToKnow: "בואו נכיר אתכם",
+    personalizeDesc: "נשתמש במידע זה כדי להתאים את ההגיגים שלך כך שידברו אליך באמת.",
+    fullName: "שם מלא",
+    email: "כתובת אימייל",
+    ageRange: "טווח גילאים",
+    gender: "מגדר",
+    stageSituation: "מה המצב שלך בחיים?",
+    stageDesc: "בחר מה שמתאר הכי טוב איפה אתה נמצא בחיים כרגע.",
+    privacyNote: "המסע שלך פרטי. אנחנו משתמשים במידע זה רק כדי להתאים את התוכן שלך ולעולם לא משתפים עם צד שלישי.",
+    trial: "ניסיון",
+    daysLeft: "ימים נותרו",
+    dayLeft: "יום נותר",
+    
+    // Loading steps
+    gettingVerse: "מביא פסוק...",
+    generatingInterpretation: "יוצר פירוש...",
+    connectionError: "שגיאת חיבור. נסה שוב.",
+    searchingFor: "מחפש",
+    
+    // Jewish-specific terms
+    torah: "תורה",
+    tanakh: "תנ״ך",
+    talmud: "תלמוד",
+    midrash: "מדרש",
+    parsha: "פרשת השבוע",
+    shabbat: "שבת",
+    holiday: "חג",
+    prayer: "תפילה",
+    blessing: "ברכה",
+    mitzvah: "מצווה",
+    mussar: "מוסר",
+    chassidut: "חסידות",
+    kabbalah: "קבלה",
+    halacha: "הלכה",
+  },
+  
   es: {
     welcome: "Bienvenido",
     discoverInspiration: "Descubre inspiración diaria adaptada solo para ti.",
@@ -87,12 +151,12 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     gender: "Género",
     stageSituation: "¿Cuál es tu situación de vida?",
     stageDesc: "Elige lo que mejor describe dónde estás en la vida ahora.",
-    privacyNote:
-      "Tu viaje es privado. Solo usamos estos datos para personalizar tu contenido devocional y nunca se comparte con terceros.",
+    privacyNote: "Tu viaje es privado. Solo usamos estos datos para personalizar tu contenido devocional y nunca se comparte con terceros.",
     trial: "Prueba",
     daysLeft: "días restantes",
     dayLeft: "día restante",
   },
+  
   fr: {
     welcome: "Bienvenue",
     discoverInspiration: "Découvrez l'inspiration quotidienne adaptée pour vous.",
@@ -114,20 +178,19 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     language: "Langue",
     save: "Enregistrer et Continuer",
     letsGetToKnow: "Faisons connaissance",
-    personalizeDesc:
-      "Nous utiliserons ceci pour personnaliser vos dévotions afin qu'elles parlent vraiment à où vous en êtes.",
+    personalizeDesc: "Nous utiliserons ceci pour personnaliser vos dévotions afin qu'elles parlent vraiment à où vous en êtes.",
     fullName: "Nom Complet",
     email: "Adresse Email",
     ageRange: "Tranche d'Âge",
     gender: "Genre",
     stageSituation: "Quelle est votre situation de vie?",
     stageDesc: "Choisissez ce qui décrit le mieux où vous en êtes dans la vie.",
-    privacyNote:
-      "Votre parcours est privé. Nous n'utilisons ces données que pour personnaliser votre contenu et ne les partageons jamais avec des tiers.",
+    privacyNote: "Votre parcours est privé. Nous n'utilisons ces données que pour personnaliser votre contenu et ne les partageons jamais avec des tiers.",
     trial: "Essai",
     daysLeft: "jours restants",
     dayLeft: "jour restant",
   },
+  
   de: {
     welcome: "Willkommen",
     discoverInspiration: "Entdecke tägliche Inspiration, die nur für dich gemacht ist.",
@@ -156,12 +219,12 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     gender: "Geschlecht",
     stageSituation: "Was ist deine Lebenssituation?",
     stageDesc: "Wähle, was am besten beschreibt, wo du gerade im Leben stehst.",
-    privacyNote:
-      "Deine Reise ist privat. Wir nutzen diese Daten nur zur Personalisierung und teilen sie niemals mit Dritten.",
+    privacyNote: "Deine Reise ist privat. Wir nutzen diese Daten nur zur Personalisierung und teilen sie niemals mit Dritten.",
     trial: "Testversion",
     daysLeft: "Tage übrig",
     dayLeft: "Tag übrig",
   },
+  
   pt: {
     welcome: "Bem-vindo",
     discoverInspiration: "Descubra inspiração diária feita especialmente para você.",
@@ -190,12 +253,12 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     gender: "Gênero",
     stageSituation: "Qual é sua situação de vida?",
     stageDesc: "Escolha o que melhor descreve onde você está na vida agora.",
-    privacyNote:
-      "Sua jornada é privada. Usamos esses dados apenas para personalizar seu conteúdo e nunca compartilhamos com terceiros.",
+    privacyNote: "Sua jornada é privada. Usamos esses dados apenas para personalizar seu conteúdo e nunca compartilhamos com terceiros.",
     trial: "Teste",
     daysLeft: "dias restantes",
     dayLeft: "dia restante",
   },
+  
   zh: {
     welcome: "欢迎",
     discoverInspiration: "发现专为您量身定制的每日灵感。",
@@ -229,6 +292,7 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     daysLeft: "天剩余",
     dayLeft: "天剩余",
   },
+  
   vi: {
     welcome: "Chào mừng",
     discoverInspiration: "Khám phá cảm hứng hàng ngày dành riêng cho bạn.",
@@ -257,12 +321,12 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     gender: "Giới Tính",
     stageSituation: "Tình trạng cuộc sống của bạn là gì?",
     stageDesc: "Chọn điều mô tả đúng nhất vị trí của bạn trong cuộc sống hiện tại.",
-    privacyNote:
-      "Hành trình của bạn là riêng tư. Chúng tôi chỉ sử dụng dữ liệu này để cá nhân hóa nội dung và không bao giờ chia sẻ với bên thứ ba.",
+    privacyNote: "Hành trình của bạn là riêng tư. Chúng tôi chỉ sử dụng dữ liệu này để cá nhân hóa nội dung và không bao giờ chia sẻ với bên thứ ba.",
     trial: "Dùng thử",
     daysLeft: "ngày còn lại",
     dayLeft: "ngày còn lại",
   },
+  
   ko: {
     welcome: "환영합니다",
     discoverInspiration: "당신만을 위한 매일의 영감을 발견하세요.",
@@ -296,6 +360,7 @@ export const translations: Record<LanguageCode, Record<string, string>> = {
     daysLeft: "일 남음",
     dayLeft: "일 남음",
   },
+  
   th: {
     welcome: "ยินดีต้อนรับ",
     discoverInspiration: "ค้นพบแรงบันดาลใจประจำวันที่ออกแบบมาเพื่อคุณโดยเฉพาะ",
@@ -336,17 +401,31 @@ interface LanguageContextType {
   setLanguage: (lang: LanguageCode) => void
   t: (key: string) => string
   currentLanguage: Language
+  isRTL: boolean
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
+
+// Detect browser language and match to supported languages
+function detectBrowserLanguage(): LanguageCode {
+  if (typeof navigator === "undefined") return "en"
+  
+  const browserLang = navigator.language?.slice(0, 2).toLowerCase()
+  const match = SUPPORTED_LANGUAGES.find((l) => l.code === browserLang)
+  return match?.code || "en"
+}
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<LanguageCode>("en")
 
   useEffect(() => {
+    // Priority: 1) Saved preference, 2) Browser language, 3) Default (en)
     const saved = localStorage.getItem("userLanguage")
     if (saved && SUPPORTED_LANGUAGES.some((l) => l.code === saved)) {
       setLanguageState(saved as LanguageCode)
+    } else {
+      const detected = detectBrowserLanguage()
+      setLanguageState(detected)
     }
   }, [])
 
@@ -356,13 +435,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   }
 
   const t = (key: string): string => {
-    return translations[language][key] || translations.en[key] || key
+    return translations[language]?.[key] || translations.en[key] || key
   }
 
-  const currentLanguage = SUPPORTED_LANGUAGES.find((l) => l.code === language) || SUPPORTED_LANGUAGES[0]
+  const currentLanguage = SUPPORTED_LANGUAGES.find((l) => l.code === language) || SUPPORTED_LANGUAGES[1] // Default to English
+  const isRTL = currentLanguage.rtl === true
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t, currentLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, currentLanguage, isRTL }}>
       {children}
     </LanguageContext.Provider>
   )

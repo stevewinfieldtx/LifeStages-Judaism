@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { DevotionalProvider } from "@/context/devotional-context"
 import { SubscriptionProvider } from "@/context/subscription-context"
 import { LanguageProvider } from "@/context/language-context"
+import { RTLWrapper } from "@/components/rtl-wrapper"
 import "./globals.css"
 
 const _libreBaskerville = Libre_Baskerville({
@@ -42,7 +43,9 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <LanguageProvider>
           <SubscriptionProvider>
-            <DevotionalProvider>{children}</DevotionalProvider>
+            <DevotionalProvider>
+              <RTLWrapper>{children}</RTLWrapper>
+            </DevotionalProvider>
           </SubscriptionProvider>
         </LanguageProvider>
         <Analytics />

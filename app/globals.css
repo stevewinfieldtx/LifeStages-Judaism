@@ -125,3 +125,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* RTL Support for Hebrew */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .material-symbols-outlined {
+  /* Flip directional icons in RTL */
+}
+
+/* Flip back arrow for RTL */
+[dir="rtl"] .arrow_back_ios_new {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .arrow_forward_ios {
+  transform: scaleX(-1);
+}
+
+/* Ensure flex layouts work correctly in RTL */
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+/* Keep certain elements LTR even in RTL context (like numbers, code) */
+[dir="rtl"] .ltr {
+  direction: ltr;
+  text-align: left;
+}
